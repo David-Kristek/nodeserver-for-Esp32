@@ -6,7 +6,6 @@ const MobileFrontendController = {
   },
   stopMeasurment: (req, res) => {
     MobileFrontendController["measurement"] = false;
-    MobileFrontendController["arrayForChart"] = []; 
     res.send("Measurment stopped");
   },
   isMeasurment: (req, res) => {

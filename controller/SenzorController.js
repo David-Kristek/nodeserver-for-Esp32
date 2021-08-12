@@ -26,6 +26,7 @@ const SenzorController = {
       sendMeasurementToMobile(SenzorController["arrayForChart"]);
       return res.send("Measurment on");
     }
+    SenzorController["arrayForChart"] = []; 
     sendDataToMobile(data);
     return res.send("Success");
   },
