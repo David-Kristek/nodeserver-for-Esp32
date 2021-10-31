@@ -7,13 +7,14 @@ const SenzorController = {
   arrayForChart: [],
   getSenzorValues: (req, res) => {
     const { temperature, humidity, brightness } = req.body;
-    console.log(req.body);
-    if (temperature && humidity && brightness == false)
+    console.log(req.body)
+    if (!temperature || !humidity || !brightness) {
+      console.log("reading from senzors failed");
       return res.send("Failed to read from senzors");
+    }
     this.humidity = humidity;
     this.temperature = temperature;
     this.brightness = brightness;
-    console.log(MobileFrontendController["measurement"]);
     var data = {
       temperature: this.temperature,
       humidity: this.humidity,
@@ -21,12 +22,13 @@ const SenzorController = {
       date: new Date(),
     };
     if (MobileFrontendController["measurement"]) {
+      console.log("measurement");
       SenzorController["arrayForChart"].push(data);
-      // console.log(SenzorController["arrayForChart"]);
+      console.log(SenzorController["arrayForChart"]);
       sendMeasurementToMobile(SenzorController["arrayForChart"]);
       return res.send("Measurment on");
     }
-    SenzorController["arrayForChart"] = []; 
+    SenzorController["arrayForChart"] = [];
     sendDataToMobile(data);
     return res.send("Success");
   },
